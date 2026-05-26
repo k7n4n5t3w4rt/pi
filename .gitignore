@@ -1,1 +1,4 @@
 ./agent/sessions/
+agent/auth.json
+agent/library-proxy-config.json
+agent/settings.json
