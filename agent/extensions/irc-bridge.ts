@@ -19,8 +19,12 @@ export default function (pi: ExtensionAPI) {
 
   function sendToIrc(text: string) {
     try {
-      // Write full text once — the Python bot handles IRC-safe chunking
-      fs.writeFileSync(FIFO, text.trim());
+      // IRC doesn't handle embedded newlines — collapse to single line
+      // The Python bot handles length-based chunking
+      const cleaned = text.trim().replace(/\n+/g, " | ");
+      if (cleaned) {
+        fs.writeFileSync(FIFO, cleaned);
+      }
     } catch {
       // FIFO may not be ready
     }
