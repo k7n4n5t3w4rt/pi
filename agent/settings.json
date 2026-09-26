@@ -1,9 +1,7 @@
 {
-  "lastChangelogVersion": "0.78.1",
-  "defaultProvider": "openai",
-  "defaultModel": "gpt-5.5",
-  "enabledModels": [
-    "openai/*",
-    "deepseek/*"
-  ]
+  "lastChangelogVersion": "0.87.1",
+  "defaultProvider": "deepseek",
+  "defaultModel": "deepseek-v4-pro",
+  "defaultThinkingLevel": "high",
+  "theme": "dark"
 }
