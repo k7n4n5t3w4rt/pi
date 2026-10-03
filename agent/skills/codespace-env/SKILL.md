@@ -63,7 +63,13 @@ No re-registration needed — it is the same key, same fingerprint.
 
 ## Persistence
 
-- Idle timeout: **30 minutes** (auto-stop; wake with `ssh codespace`). Left as default by choice.
+Two independent stop triggers apply:
+
+- **Idle timeout: 30 minutes** — auto-stop after inactivity. An active `ssh` session resets this timer. Wake again with `ssh codespace`. Note: the idle timeout can only be set at codespace **creation** time (e.g. `gh codespace create --idle-timeout 30m`); the REST API's "Update a codespace" endpoint only edits machine type and recent folders, not the timeout.
+- **Maximum lifetime: 12 hours** — hard cap on continuous running, applied **even during active use** and not configurable. Near the limit you get the warning *"Your codespace must be stopped soon"*; data is saved, it stops, and reconnecting (`ssh codespace` auto-starts it) resets the 12-hour clock. See <https://docs.github.com/en/codespaces/getting-started/understanding-the-codespace-lifecycle>.
+
+Both stops preserve the workspace, home dir, and SSH key; only a container *rebuild* wipes the home dir.
+
 - Retention: 30 days stopped, then auto-delete. Touch at least monthly.
 
 ## Managing the codespace
